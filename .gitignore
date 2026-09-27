@@ -1,0 +1,9 @@
+node_modules/
+docs/node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+*.visual-check.*
+avatars/*.jpg
+starter-governance.html
+.DS_Store
+Thumbs.db

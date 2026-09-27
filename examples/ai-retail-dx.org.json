@@ -1,0 +1,216 @@
+{
+  "projectTitle": "次世代AI店舗DXプロジェクト プロジェクト体制図",
+  "projectSubtitle": "プロジェクトオーナー（頂点）➔ プロジェクトマネジメント（右分岐）➔ 4部署（事業部・開発T・運用T・品質管理T）× 4社横断系統ツリー",
+  "date": "2026年 9月 27日",
+  "organizations": {
+    "next_retail": {
+      "name": "株式会社ネクストリテール（発注元）",
+      "short": "ネクストリテール",
+      "type": "frontend",
+      "color": "#38bdf8",
+      "badgeBg": "rgba(56, 189, 248, 0.16)"
+    },
+    "ark_systems": {
+      "name": "アークシステムズ株式会社（プライム）",
+      "short": "アークシステムズ",
+      "type": "backend",
+      "color": "#10b981",
+      "badgeBg": "rgba(16, 185, 129, 0.16)"
+    },
+    "irodori_ai": {
+      "name": "株式会社イロドリAIラボ（AIパートナー）",
+      "short": "イロドリAIラボ",
+      "type": "cloud",
+      "color": "#a855f7",
+      "badgeBg": "rgba(168, 85, 247, 0.16)"
+    },
+    "cloud_forge": {
+      "name": "クラウドフォージ株式会社（SREパートナー）",
+      "short": "クラウドフォージ",
+      "type": "security",
+      "color": "#f43f5e",
+      "badgeBg": "rgba(244, 63, 94, 0.16)"
+    },
+    "ark_qa": {
+      "name": "アークシステムズ株式会社（品質管理T）",
+      "short": "アークシステムズ",
+      "type": "messagebus",
+      "color": "#f59e0b",
+      "badgeBg": "rgba(245, 158, 11, 0.16)"
+    }
+  },
+  "owner": {
+    "id": "sato_sponsor",
+    "name": "佐藤 健一",
+    "title": "プロジェクトオーナー",
+    "department": "(事業部)",
+    "role": "執行役員 / 統括オーナー",
+    "org": "next_retail",
+    "avatar": "avatars/thumb/sato_sponsor.jpg"
+  },
+  "pm": {
+    "title": "プロジェクトマネジメント",
+    "lead": {
+      "id": "suzuki_pm",
+      "name": "鈴木 誠",
+      "badge": "(主)",
+      "role": "統括PM / プライム責任者",
+      "org": "ark_systems",
+      "avatar": "avatars/thumb/suzuki_pm.jpg"
+    },
+    "members": [
+      {
+        "id": "ito_pmo",
+        "name": "伊藤 彩乃",
+        "badge": "(PMO補佐)",
+        "role": "PMO・品質ゲート連携",
+        "org": "ark_qa",
+        "avatar": "avatars/thumb/ito_pmo.jpg"
+      }
+    ]
+  },
+  "departments": [
+    {
+      "id": "dept_biz",
+      "name": "事業部",
+      "headerColor": "#0284c7",
+      "members": [
+        {
+          "id": "takahashi_po",
+          "name": "高橋 美咲",
+          "badge": "(主)",
+          "role": "事業部 主担当 / 要件定義",
+          "org": "next_retail",
+          "parent": "sato_sponsor",
+          "avatar": "avatars/thumb/takahashi_po.jpg"
+        },
+        {
+          "id": "sasaki_bpr",
+          "name": "佐々木 遥",
+          "badge": "",
+          "role": "┗ 高橋系統 / 店舗BPR・UAT",
+          "org": "next_retail",
+          "parent": "takahashi_po",
+          "avatar": "avatars/thumb/sasaki_bpr.jpg"
+        }
+      ],
+      "roles": [
+        "・業務要件定義・KGI/KPI策定",
+        "・全国店舗オペレーションBPR",
+        "・店舗スタッフ教育・マニュアル整備",
+        "・受入テスト(UAT)・リリース最終承認"
+      ]
+    },
+    {
+      "id": "dept_dev",
+      "name": "開発T",
+      "headerColor": "#059669",
+      "members": [
+        {
+          "id": "tanaka_arch",
+          "name": "田中 翔太",
+          "badge": "(主)",
+          "role": "開発T 主担当 / 全体設計",
+          "org": "ark_systems",
+          "parent": "suzuki_pm",
+          "avatar": "avatars/thumb/tanaka_arch.jpg"
+        },
+        {
+          "id": "yamamoto_dev",
+          "name": "山本 拓海",
+          "badge": "",
+          "role": "┣ 田中系統 / UI・API実装",
+          "org": "ark_systems",
+          "parent": "tanaka_arch",
+          "avatar": "avatars/thumb/yamamoto_dev.jpg"
+        },
+        {
+          "id": "watanabe_ai",
+          "name": "渡辺 蓮",
+          "badge": "(AI主)",
+          "role": "┗ 田中系統 / Agent設計",
+          "org": "irodori_ai",
+          "parent": "tanaka_arch",
+          "avatar": "avatars/thumb/watanabe_ai.jpg"
+        },
+        {
+          "id": "kobayashi_eval",
+          "name": "小林 結衣",
+          "badge": "",
+          "role": "┗ 渡辺系統 / RAG・精度検証",
+          "org": "irodori_ai",
+          "parent": "watanabe_ai",
+          "avatar": "avatars/thumb/kobayashi_eval.jpg"
+        }
+      ],
+      "roles": [
+        "・システム全体アーキテクチャ設計",
+        "・店舗向けフロントUI / API実装",
+        "・マルチエージェント推論基盤開発",
+        "・RAGデータ構築・LLM精度検証"
+      ]
+    },
+    {
+      "id": "dept_ops",
+      "name": "運用T",
+      "headerColor": "#e11d48",
+      "members": [
+        {
+          "id": "nakamura_sre",
+          "name": "中村 剛",
+          "badge": "(主)",
+          "role": "運用T 主担当 / SRE・Sec",
+          "org": "cloud_forge",
+          "parent": "suzuki_pm",
+          "avatar": "avatars/thumb/nakamura_sre.jpg"
+        },
+        {
+          "id": "kato_ops",
+          "name": "加藤 大輔",
+          "badge": "",
+          "role": "┗ 中村系統 / 基盤監視・運用",
+          "org": "cloud_forge",
+          "parent": "nakamura_sre",
+          "avatar": "avatars/thumb/kato_ops.jpg"
+        }
+      ],
+      "roles": [
+        "・GPU推論クラスタ・IaC基盤構築",
+        "・ゼロトラスト・セキュリティ監査",
+        "・SLO/SLI定義・24/365死活監視",
+        "・障害一次切り分け・インシデント対応"
+      ]
+    },
+    {
+      "id": "dept_qa",
+      "name": "品質管理T",
+      "headerColor": "#d97706",
+      "members": [
+        {
+          "id": "ito_pmo",
+          "name": "伊藤 彩乃",
+          "badge": "(主)",
+          "role": "品質管理T 主担当 / QA統括",
+          "org": "ark_qa",
+          "parent": "suzuki_pm",
+          "avatar": "avatars/thumb/ito_pmo.jpg"
+        },
+        {
+          "id": "matsumoto_qa",
+          "name": "松本 凛",
+          "badge": "",
+          "role": "┗ 伊藤系統 / 品質検証・監査",
+          "org": "ark_qa",
+          "parent": "ito_pmo",
+          "avatar": "avatars/thumb/matsumoto_qa.jpg"
+        }
+      ],
+      "roles": [
+        "・総合テスト計画・品質ゲート審査",
+        "・マルチベンダ進捗・課題リスク管理",
+        "・LLMハルシネーション安全性検証",
+        "・出荷判定監査・品質メトリクス分析"
+      ]
+    }
+  ]
+}

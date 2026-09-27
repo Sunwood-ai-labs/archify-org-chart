@@ -1,0 +1,430 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "次世代AI店舗DXプロジェクト プロジェクト体制図",
+    "subtitle": "プロジェクトオーナー（頂点）➔ プロジェクトマネジメント（右分岐）➔ 4部署（事業部・開発T・運用T・品質管理T）× 4社横断系統ツリー",
+    "output": "project-governance.architecture.html",
+    "visual_preset": "blueprint",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "frontend": {
+          "label": "株式会社ネクストリテール（発注元）",
+          "visible": true
+        },
+        "backend": {
+          "label": "アークシステムズ株式会社（プライム）",
+          "visible": true
+        },
+        "cloud": {
+          "label": "株式会社イロドリAIラボ（AIパートナー）",
+          "visible": true
+        },
+        "security": {
+          "label": "クラウドフォージ株式会社（SREパートナー）",
+          "visible": true
+        },
+        "messagebus": {
+          "label": "アークシステムズ株式会社（品質管理T）",
+          "visible": true
+        },
+        "database": {
+          "label": "データ基盤",
+          "visible": false
+        },
+        "external": {
+          "label": "外部",
+          "visible": false
+        }
+      }
+    },
+    "views": [
+      {
+        "id": "owner-pm-trunk",
+        "label": "① オーナー＆PM主幹ツリー",
+        "focus": [
+          "sato_sponsor",
+          "suzuki_pm",
+          "takahashi_po",
+          "tanaka_arch",
+          "nakamura_sre",
+          "ito_pmo"
+        ],
+        "note": "プロジェクトオーナーから右分岐のPMを経て、4部署の各主担当へ分岐する主幹ツリー。"
+      },
+      {
+        "id": "biz-team-lineage",
+        "label": "② 事業部ツリー系統",
+        "focus": [
+          "sato_sponsor",
+          "takahashi_po",
+          "sasaki_bpr"
+        ],
+        "note": "【事業部】主担当から各メンバーへ連なる直属系統。"
+      },
+      {
+        "id": "dev-team-lineage",
+        "label": "③ 開発Tツリー系統",
+        "focus": [
+          "sato_sponsor",
+          "suzuki_pm",
+          "tanaka_arch",
+          "yamamoto_dev",
+          "watanabe_ai",
+          "kobayashi_eval"
+        ],
+        "note": "【開発T】複数組織を横断して分岐する開発・AI系統。"
+      },
+      {
+        "id": "ops-qa-lineage",
+        "label": "④ 運用T・品質管理Tツリー系統",
+        "focus": [
+          "sato_sponsor",
+          "suzuki_pm",
+          "nakamura_sre",
+          "kato_ops",
+          "ito_pmo",
+          "matsumoto_qa"
+        ],
+        "note": "【運用T・品質管理T】インフラ監視・セキュリティ監査・品質ゲートを担う系統。"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "sato_sponsor",
+      "type": "frontend",
+      "label": "佐藤 健一",
+      "sublabel": "プロジェクトオーナー (事業部)",
+      "tag": "ネクストリテール",
+      "pos": [
+        467,
+        36
+      ],
+      "size": [
+        176,
+        62
+      ]
+    },
+    {
+      "id": "suzuki_pm",
+      "type": "backend",
+      "label": "鈴木 誠 (主)",
+      "sublabel": "プロジェクトマネジメント",
+      "tag": "アークシステムズ",
+      "pos": [
+        740,
+        124
+      ],
+      "size": [
+        180,
+        62
+      ]
+    },
+    {
+      "id": "takahashi_po",
+      "type": "frontend",
+      "label": "高橋 美咲 (主)",
+      "sublabel": "事業部 主担当 / 要件定義",
+      "tag": "ネクストリテール",
+      "pos": [
+        84,
+        290
+      ],
+      "size": [
+        156,
+        62
+      ]
+    },
+    {
+      "id": "sasaki_bpr",
+      "type": "frontend",
+      "label": "佐々木 遥",
+      "sublabel": "┗ 高橋系統 / 店舗BPR・UAT",
+      "tag": "ネクストリテール",
+      "pos": [
+        84,
+        420
+      ],
+      "size": [
+        156,
+        62
+      ]
+    },
+    {
+      "id": "tanaka_arch",
+      "type": "backend",
+      "label": "田中 翔太 (主)",
+      "sublabel": "開発T 主担当 / 全体設計",
+      "tag": "アークシステムズ",
+      "pos": [
+        374,
+        290
+      ],
+      "size": [
+        156,
+        62
+      ]
+    },
+    {
+      "id": "yamamoto_dev",
+      "type": "backend",
+      "label": "山本 拓海",
+      "sublabel": "┣ 田中系統 / UI・API実装",
+      "tag": "アークシステムズ",
+      "pos": [
+        290,
+        420
+      ],
+      "size": [
+        152,
+        62
+      ]
+    },
+    {
+      "id": "watanabe_ai",
+      "type": "cloud",
+      "label": "渡辺 蓮 (AI主)",
+      "sublabel": "┗ 田中系統 / Agent設計",
+      "tag": "イロドリAIラボ",
+      "pos": [
+        462,
+        420
+      ],
+      "size": [
+        152,
+        62
+      ]
+    },
+    {
+      "id": "kobayashi_eval",
+      "type": "cloud",
+      "label": "小林 結衣",
+      "sublabel": "┗ 渡辺系統 / RAG・精度検証",
+      "tag": "イロドリAIラボ",
+      "pos": [
+        462,
+        546
+      ],
+      "size": [
+        152,
+        62
+      ]
+    },
+    {
+      "id": "nakamura_sre",
+      "type": "security",
+      "label": "中村 剛 (主)",
+      "sublabel": "運用T 主担当 / SRE・Sec",
+      "tag": "クラウドフォージ",
+      "pos": [
+        664,
+        290
+      ],
+      "size": [
+        156,
+        62
+      ]
+    },
+    {
+      "id": "kato_ops",
+      "type": "security",
+      "label": "加藤 大輔",
+      "sublabel": "┗ 中村系統 / 基盤監視・運用",
+      "tag": "クラウドフォージ",
+      "pos": [
+        664,
+        420
+      ],
+      "size": [
+        156,
+        62
+      ]
+    },
+    {
+      "id": "ito_pmo",
+      "type": "messagebus",
+      "label": "伊藤 彩乃 (主)",
+      "sublabel": "品質管理T 主担当 / QA統括",
+      "tag": "アークシステムズ",
+      "pos": [
+        870,
+        290
+      ],
+      "size": [
+        156,
+        62
+      ]
+    },
+    {
+      "id": "matsumoto_qa",
+      "type": "messagebus",
+      "label": "松本 凛",
+      "sublabel": "┗ 伊藤系統 / 品質検証・監査",
+      "tag": "アークシステムズ",
+      "pos": [
+        870,
+        420
+      ],
+      "size": [
+        156,
+        62
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "事業部",
+      "wraps": [
+        "takahashi_po",
+        "sasaki_bpr"
+      ],
+      "pad": 16
+    },
+    {
+      "kind": "region",
+      "label": "開発T",
+      "wraps": [
+        "tanaka_arch",
+        "yamamoto_dev",
+        "watanabe_ai",
+        "kobayashi_eval"
+      ],
+      "pad": 16
+    },
+    {
+      "kind": "region",
+      "label": "運用T",
+      "wraps": [
+        "nakamura_sre",
+        "kato_ops"
+      ],
+      "pad": 16
+    },
+    {
+      "kind": "region",
+      "label": "品質管理T",
+      "wraps": [
+        "ito_pmo",
+        "matsumoto_qa"
+      ],
+      "pad": 16
+    }
+  ],
+  "connections": [
+    {
+      "from": "sato_sponsor",
+      "to": "suzuki_pm",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "sato_sponsor",
+      "to": "takahashi_po",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "takahashi_po",
+      "to": "sasaki_bpr",
+      "variant": "default",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight"
+    },
+    {
+      "from": "sato_sponsor",
+      "to": "tanaka_arch",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "tanaka_arch",
+      "to": "yamamoto_dev",
+      "variant": "default",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "tanaka_arch",
+      "to": "watanabe_ai",
+      "variant": "default",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "watanabe_ai",
+      "to": "kobayashi_eval",
+      "variant": "default",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight"
+    },
+    {
+      "from": "sato_sponsor",
+      "to": "nakamura_sre",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "nakamura_sre",
+      "to": "kato_ops",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight"
+    },
+    {
+      "from": "sato_sponsor",
+      "to": "ito_pmo",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "ito_pmo",
+      "to": "matsumoto_qa",
+      "variant": "default",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "事業部のロール",
+      "items": [
+        "・業務要件定義・KGI/KPI策定",
+        "・全国店舗オペレーションBPR",
+        "・店舗スタッフ教育・マニュアル整備"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "開発Tのロール",
+      "items": [
+        "・システム全体アーキテクチャ設計",
+        "・店舗向けフロントUI / API実装",
+        "・マルチエージェント推論基盤開発"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "運用T ＆ 品質管理Tのロール",
+      "items": [
+        "・GPU推論クラスタ・IaC基盤構築",
+        "・ゼロトラスト・セキュリティ監査",
+        "・総合テスト計画・品質ゲート審査"
+      ]
+    }
+  ]
+}

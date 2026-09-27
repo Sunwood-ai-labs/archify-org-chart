@@ -1,0 +1,194 @@
+{
+  "projectTitle": "□□□□ プロジェクト プロジェクト体制図",
+  "projectSubtitle": "プロジェクトオーナー（頂点）➔ プロジェクトマネジメント（右分岐）➔ 4部署（事業部・開発T・運用T・品質管理T）の階層ツリー",
+  "date": "2026年 4月 1日",
+  "organizations": {
+    "client_org": {
+      "name": "発注元企業（事業部）",
+      "short": "発注元",
+      "type": "frontend",
+      "color": "#38bdf8",
+      "badgeBg": "rgba(56, 189, 248, 0.16)"
+    },
+    "prime_org": {
+      "name": "プライムベンダ（PM・開発）",
+      "short": "プライム",
+      "type": "backend",
+      "color": "#10b981",
+      "badgeBg": "rgba(16, 185, 129, 0.16)"
+    },
+    "partner_org": {
+      "name": "専門パートナー（AI・データ）",
+      "short": "AIパートナー",
+      "type": "cloud",
+      "color": "#a855f7",
+      "badgeBg": "rgba(168, 85, 247, 0.16)"
+    },
+    "ops_org": {
+      "name": "運用パートナー（SRE・基盤）",
+      "short": "SREパートナー",
+      "type": "security",
+      "color": "#f43f5e",
+      "badgeBg": "rgba(244, 63, 94, 0.16)"
+    },
+    "qa_org": {
+      "name": "品質保証部門（QA・監査）",
+      "short": "品質保証",
+      "type": "messagebus",
+      "color": "#f59e0b",
+      "badgeBg": "rgba(245, 158, 11, 0.16)"
+    }
+  },
+  "owner": {
+    "id": "owner_lead",
+    "name": "〇〇 〇〇",
+    "title": "プロジェクトオーナー",
+    "department": "(事業部)",
+    "role": "プロジェクトオーナー (事業部)",
+    "org": "client_org",
+    "avatar": "avatars/thumb/sato_sponsor.jpg"
+  },
+  "pm": {
+    "title": "プロジェクトマネジメント",
+    "lead": {
+      "id": "pm_lead",
+      "name": "〇〇 〇〇",
+      "badge": "(主)",
+      "role": "プロジェクトマネージャー (主)",
+      "org": "prime_org",
+      "avatar": "avatars/thumb/suzuki_pm.jpg"
+    },
+    "members": [
+      {
+        "id": "pm_sub",
+        "name": "〇〇 〇〇",
+        "badge": "",
+        "role": "PMO / 推進補佐",
+        "org": "prime_org",
+        "avatar": "avatars/thumb/ito_pmo.jpg"
+      }
+    ]
+  },
+  "departments": [
+    {
+      "id": "dept_biz",
+      "name": "事業部",
+      "headerColor": "#0284c7",
+      "members": [
+        {
+          "id": "biz_lead",
+          "name": "〇〇 〇〇",
+          "badge": "(主)",
+          "role": "事業部 主担当",
+          "org": "client_org",
+          "parent": "owner_lead",
+          "avatar": "avatars/thumb/takahashi_po.jpg"
+        },
+        {
+          "id": "biz_sub",
+          "name": "〇〇 〇〇",
+          "badge": "",
+          "role": "┗ 事業部 担当",
+          "org": "client_org",
+          "parent": "biz_lead",
+          "avatar": "avatars/thumb/sasaki_bpr.jpg"
+        }
+      ],
+      "roles": [
+        "・役割1（業務要件定義・KGI策定）",
+        "・役割2（業務フロー設計・BPR）",
+        "・役割3（受入テスト・導入教育）"
+      ]
+    },
+    {
+      "id": "dept_dev",
+      "name": "開発T",
+      "headerColor": "#059669",
+      "members": [
+        {
+          "id": "dev_lead",
+          "name": "〇〇 〇〇",
+          "badge": "(主)",
+          "role": "開発T 主担当",
+          "org": "prime_org",
+          "parent": "pm_lead",
+          "avatar": "avatars/thumb/tanaka_arch.jpg"
+        },
+        {
+          "id": "dev_sub",
+          "name": "〇〇 〇〇",
+          "badge": "",
+          "role": "┗ 開発T 担当",
+          "org": "partner_org",
+          "parent": "dev_lead",
+          "avatar": "avatars/thumb/watanabe_ai.jpg"
+        }
+      ],
+      "roles": [
+        "・役割1（アーキテクチャ設計）",
+        "・役割2（アプリケーション実装）",
+        "・役割3（単体・結合テスト実施）"
+      ]
+    },
+    {
+      "id": "dept_ops",
+      "name": "運用T",
+      "headerColor": "#e11d48",
+      "members": [
+        {
+          "id": "ops_lead",
+          "name": "〇〇 〇〇",
+          "badge": "(主)",
+          "role": "運用T 主担当",
+          "org": "ops_org",
+          "parent": "pm_lead",
+          "avatar": "avatars/thumb/nakamura_sre.jpg"
+        },
+        {
+          "id": "ops_sub",
+          "name": "〇〇 〇〇",
+          "badge": "",
+          "role": "┗ 運用T 担当",
+          "org": "ops_org",
+          "parent": "ops_lead",
+          "avatar": "avatars/thumb/kato_ops.jpg"
+        }
+      ],
+      "roles": [
+        "・役割1（インフラ・クラウド構築）",
+        "・役割2（監視・セキュリティ設計）",
+        "・役割3（障害対応・保守運用）"
+      ]
+    },
+    {
+      "id": "dept_qa",
+      "name": "品質管理T",
+      "headerColor": "#d97706",
+      "members": [
+        {
+          "id": "qa_lead",
+          "name": "〇〇 〇〇",
+          "badge": "(主)",
+          "role": "品質管理T 主担当",
+          "org": "qa_org",
+          "parent": "pm_lead",
+          "avatar": "avatars/thumb/ito_pmo.jpg"
+        },
+        {
+          "id": "qa_sub",
+          "name": "〇〇 〇〇",
+          "badge": "",
+          "role": "┗ 品質管理T 担当",
+          "org": "qa_org",
+          "parent": "qa_lead",
+          "avatar": "avatars/thumb/matsumoto_qa.jpg"
+        }
+      ],
+      "roles": [
+        "・役割1（品質基準・テスト計画）",
+        "・役割2（品質ゲート審査・監査）",
+        "・役割3（出荷判定・メトリクス管理）"
+      ]
+    }
+  ]
+}

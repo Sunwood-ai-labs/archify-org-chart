@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="24" fill="#0f172a"/>
+  <rect x="4" y="4" width="112" height="112" rx="20" fill="none" stroke="#1e293b" stroke-width="2"/>
+  <!-- Tree Connectors -->
+  <path d="M60 36 V60 M60 48 H92 V60 M24 60 H96 M24 60 V78 M60 60 V78 M96 60 V78" fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Top Owner Node -->
+  <circle cx="60" cy="24" r="13" fill="#0284c7" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="60" cy="21" r="4.5" fill="#f8fafc"/>
+  <path d="M52 31 C53 27 67 27 68 31" fill="none" stroke="#f8fafc" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Right Branch PM Badge -->
+  <rect x="80" y="40" width="24" height="14" rx="4" fill="#059669" stroke="#10b981" stroke-width="2"/>
+  <!-- 3 Bottom Department Avatar Nodes -->
+  <circle cx="24" cy="90" r="12" fill="#0284c7" stroke="#38bdf8" stroke-width="2.5"/>
+  <circle cx="24" cy="87" r="4" fill="#f8fafc"/>
+  <path d="M17 96 C18 92.5 31 92.5 31 96" fill="none" stroke="#f8fafc" stroke-width="2.2" stroke-linecap="round"/>
+
+  <circle cx="60" cy="90" r="12" fill="#7c3aed" stroke="#a855f7" stroke-width="2.5"/>
+  <circle cx="60" cy="87" r="4" fill="#f8fafc"/>
+  <path d="M53 96 C54 92.5 67 92.5 67 96" fill="none" stroke="#f8fafc" stroke-width="2.2" stroke-linecap="round"/>
+
+  <circle cx="96" cy="90" r="12" fill="#e11d48" stroke="#f43f5e" stroke-width="2.5"/>
+  <circle cx="96" cy="87" r="4" fill="#f8fafc"/>
+  <path d="M89 96 C90 92.5 103 92.5 103 96" fill="none" stroke="#f8fafc" stroke-width="2.2" stroke-linecap="round"/>
+</svg>

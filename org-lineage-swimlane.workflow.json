@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "マルチ組織横断・指揮系統＆デリバリー連携ツリー（スイムレーン版）",
+    "subtitle": "4組織（発注元・プライム・AIラボ・SRE）× 全12名の階層ロールと意思決定・エスカレーション経路",
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "frontend": { "label": "発注元・事業部系統（ネクストリテール）", "visible": true },
+        "backend": { "label": "プライムPM・開発T系統（アークシステムズ）", "visible": true },
+        "messagebus": { "label": "品質管理T・PMO系統（アークシステムズ）", "visible": true },
+        "cloud": { "label": "開発T・AI研究系統（イロドリAIラボ）", "visible": true },
+        "security": { "label": "運用T・SRE監査系統（クラウドフォージ）", "visible": true },
+        "database": { "label": "データ基盤", "visible": false },
+        "external": { "label": "外部", "visible": false }
+      }
+    },
+    "views": [
+      {
+        "id": "main-delivery-tree",
+        "label": "① 主幹デリバリー指揮系統",
+        "focus": ["sato_sponsor", "takahashi_po", "suzuki_pm", "tanaka_arch", "yamamoto_dev", "ito_pmo", "matsumoto_qa", "sasaki_bpr"],
+        "note": "佐藤オーナー ➔ 高橋(事業部主) ➔ 鈴木(PM主) ➔ 田中(開発T主) ➔ 山本(App) ➔ 伊藤・松本(品質管理T) ➔ 佐々木(店舗UAT)へ至る主幹ツリー。"
+      },
+      {
+        "id": "ai-research-branch",
+        "label": "② 開発T（AIパートナー系統）",
+        "focus": ["suzuki_pm", "tanaka_arch", "watanabe_ai", "kobayashi_eval", "ito_pmo", "matsumoto_qa"],
+        "note": "田中(開発T主)からイロドリAIラボ（渡辺AI主 ➔ 小林AI担当）へ分岐し、品質管理T（伊藤 ➔ 松本）へ合流する系統。"
+      },
+      {
+        "id": "sre-audit-branch",
+        "label": "③ 運用T（SRE・監視系統）",
+        "focus": ["suzuki_pm", "tanaka_arch", "nakamura_sre", "kato_ops", "ito_pmo"],
+        "note": "クラウドフォージの中村(運用T主) ➔ 加藤(運用T担当)によるクラウド基盤構築・24/365監視・セキュリティ監査ライン。"
+      }
+    ],
+    "output": "org-lineage-swimlane.workflow.html"
+  },
+  "lanes": [
+    { "id": "client_org", "label": "事業部：ネクストリテール" },
+    { "id": "prime_org", "label": "PM/開発/QA：アークシステムズ" },
+    { "id": "ai_org", "label": "開発T(AI)：イロドリAIラボ" },
+    { "id": "sre_org", "label": "運用T：クラウドフォージ", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "phase_gov", "label": "オーナー・PM統括", "fromCol": 0, "toCol": 1 },
+    { "id": "phase_build", "label": "開発T・運用T（主担当➔担当）", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "phase_gate", "label": "品質管理T・事業部UAT", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "groups": [
+    { "id": "prime_core", "label": "開発T（社内App系統）", "lane": "prime_org", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "ai_lab_group", "label": "開発T（AIラボ系統）", "lane": "ai_org", "fromCol": 2, "toCol": 3, "variant": "dashed" },
+    { "id": "sre_group", "label": "運用T（SRE系統）", "lane": "sre_org", "fromCol": 2, "toCol": 3, "variant": "default" }
+  ],
+  "mainPath": ["sato_sponsor", "takahashi_po", "suzuki_pm", "tanaka_arch", "yamamoto_dev", "ito_pmo", "matsumoto_qa", "sasaki_bpr"],
+  "nodes": [
+    { "id": "sato_sponsor", "lane": "client_org", "col": 0, "type": "frontend", "label": "佐藤 健一", "sublabel": "プロジェクトオーナー", "width": 136 },
+    { "id": "takahashi_po", "lane": "client_org", "col": 1, "type": "frontend", "label": "高橋 美咲 (主)", "sublabel": "事業部 主担当 / PO", "width": 136 },
+    { "id": "sasaki_bpr", "lane": "client_org", "col": 5, "type": "frontend", "label": "佐々木 遥", "sublabel": "┗ 高橋系統 / UAT", "width": 136 },
+    { "id": "suzuki_pm", "lane": "prime_org", "col": 1, "type": "backend", "label": "鈴木 誠 (主)", "sublabel": "PM主担当 / 全体統括", "width": 136 },
+    { "id": "tanaka_arch", "lane": "prime_org", "col": 2, "type": "backend", "label": "田中 翔太 (主)", "sublabel": "開発T 主担当 / 設計", "width": 136 },
+    { "id": "yamamoto_dev", "lane": "prime_org", "col": 3, "type": "backend", "label": "山本 拓海", "sublabel": "┣ 田中系統 / App実装", "width": 136 },
+    { "id": "ito_pmo", "lane": "prime_org", "col": 4, "type": "messagebus", "label": "伊藤 彩乃 (主)", "sublabel": "品質管理T 主担当", "width": 136 },
+    { "id": "matsumoto_qa", "lane": "prime_org", "col": 5, "type": "messagebus", "label": "松本 凛", "sublabel": "┗ 伊藤系統 / 品質監査", "width": 136 },
+    { "id": "watanabe_ai", "lane": "ai_org", "col": 2, "type": "cloud", "label": "渡辺 蓮 (AI主)", "sublabel": "┗ 田中系統 / Agent", "width": 136 },
+    { "id": "kobayashi_eval", "lane": "ai_org", "col": 3, "type": "cloud", "label": "小林 結衣", "sublabel": "┗ 渡辺系統 / RAG検証", "width": 136 },
+    { "id": "nakamura_sre", "lane": "sre_org", "col": 2, "type": "security", "label": "中村 剛 (主)", "sublabel": "運用T 主担当 / SRE", "width": 136 },
+    { "id": "kato_ops", "lane": "sre_org", "col": 3, "type": "security", "label": "加藤 大輔", "sublabel": "┗ 中村系統 / 監視運用", "width": 136 }
+  ],
+  "edges": [
+    { "id": "e_sponsor_po", "from": "sato_sponsor", "to": "takahashi_po", "label": "予算委任", "variant": "emphasis" },
+    { "id": "e_po_pm", "from": "takahashi_po", "to": "suzuki_pm", "label": "開発委託", "variant": "emphasis" },
+    { "id": "e_pm_arch", "from": "suzuki_pm", "to": "tanaka_arch", "label": "開発T指揮", "variant": "emphasis" },
+    { "id": "e_arch_app", "from": "tanaka_arch", "to": "yamamoto_dev", "label": "App指示", "variant": "emphasis" },
+    { "id": "e_app_pmo", "from": "yamamoto_dev", "to": "ito_pmo", "label": "結合提出", "variant": "emphasis" },
+    { "id": "e_pmo_qa", "from": "ito_pmo", "to": "matsumoto_qa", "label": "監査指示", "variant": "emphasis" },
+    { "id": "e_qa_bpr", "from": "matsumoto_qa", "to": "sasaki_bpr", "label": "UAT引渡", "variant": "emphasis" },
+    { "id": "e_arch_ai", "from": "tanaka_arch", "to": "watanabe_ai", "label": "AI委託", "variant": "default", "role": "branch" },
+    { "id": "e_ai_eval", "from": "watanabe_ai", "to": "kobayashi_eval", "label": "検証指示", "variant": "default" },
+    { "id": "e_eval_pmo", "from": "kobayashi_eval", "to": "ito_pmo", "label": "精度報告", "variant": "default" },
+    { "id": "e_pm_sre", "from": "suzuki_pm", "to": "nakamura_sre", "label": "運用T指揮", "variant": "security", "role": "branch" },
+    { "id": "e_sre_ops", "from": "nakamura_sre", "to": "kato_ops", "label": "監視指示", "variant": "security" },
+    { "id": "e_ops_pmo", "from": "kato_ops", "to": "ito_pmo", "label": "基盤監査", "variant": "security" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "組織レーン×4部署（事業部・開発T・運用T・品質管理T）",
+      "items": [
+        "縦軸（スイムレーン）で4つの所属企業・組織境界を明確に分離",
+        "横軸（フェーズ0〜5）でオーナー ➔ PM ➔ 各部署の主担当(主) ➔ 担当(┗) への系統を表現"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "全12名のアバター＆指揮系統",
+      "items": [
+        "事業部（高橋➔佐々木）、開発T（田中➔山本 / 渡辺➔小林）、運用T（中村➔加藤）、品質管理T（伊藤➔松本）の全12名を網羅",
+        "各人物ノードに顔写真アバターと所属企業タグを付与"
+      ]
+    }
+  ]
+}
