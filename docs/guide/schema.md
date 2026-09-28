@@ -44,3 +44,13 @@ Inside each department's `members` array:
 
 - The first member (`index 0`) is placed at the top of the department column as the department lead (`"badge": "(主)"`).
 - Subsequent members specify `"parent": "<parent_member_id>"` and can belong to any organization key in `organizations` (for example, an external AI partner working under the prime contractor's lead architect in `開発T`).
+
+## Supported layout and validation
+
+This is a fixed four-department template. Column 2 supports 1–4 members; the other columns support 1–2. Each department supports at most four role lines. Excess capacity, duplicate IDs, unknown organizations and reporting cycles fail explicitly. Larger teams require a different layout.
+
+`parent` determines the actual reporting edge. Set it for every non-lead department member. Department leads default to the owner when omitted.
+
+`pm.members` defines assistant cards in the companion board. Reuse a department member ID for a dual assignment and node selection; standalone assistants are board-only.
+
+Avatar paths are relative to the configuration directory. JPG, PNG and SVG are supported. Missing/omitted paths use initials. People, companies and portraits in the showcase are demo content. The starter includes no portrait photos.

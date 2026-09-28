@@ -55,6 +55,9 @@ From a single JSON configuration file (`*.org.json`), it generates a self-contai
 ```bash
 git clone https://github.com/Sunwood-ai-labs/archify-org-chart.git
 cd archify-org-chart
+
+# Requires Node.js 20+ and Git. Fetch the pinned rendering engine.
+npm run setup:archify
 ```
 
 ### 2. Edit Your Organization Config (`*.org.json`)
@@ -130,10 +133,22 @@ Full bilingual documentation (English & Japanese) and embedded interactive demos
 To preview the documentation site locally:
 
 ```bash
-npm --prefix docs install
+npm --prefix docs ci
 npm run docs:dev
 ```
 
 ## 📄 License
 
 Released under the [MIT License](./LICENSE). Diagram rendering engine powered by [`tt-a1i/archify`](https://github.com/tt-a1i/archify).
+
+## 🔧 Build and publication
+
+- Run `npm run setup:archify` once to fetch the pinned engine into `.cache/archify`. Alternatively set `ARCHIFY_CLI` to an absolute path to `archify.mjs`. Missing engines fail explicitly; old example HTML is never reused for custom input.
+- Relative avatar paths resolve **from the JSON file directory**: use `../avatars/thumb/sato_sponsor.jpg` from `examples/`, or `avatars/thumb/sato_sponsor.jpg` from a root-level config.
+- `npm run build:starter` generates the initials-only starter. Custom builds also save an adjacent `.architecture.json` and leave the bundled examples and swimlane unchanged.
+- `npm run build:demos` regenerates both demos and synchronizes the Pages files. The swimlane is a separate fixed example authored in `org-lineage-swimlane.workflow.json`.
+- Expand **Organization board** at the bottom for the readable table. PM assistants appear in this board; selection is enabled when their ID also exists in the diagram.
+- The fixed diagram viewer UI is English; authored names/descriptions are Japanese. The documentation supports both languages.
+- HTML embeds the diagram and avatars. External fonts may be requested by the viewer; fonts fall back locally when offline.
+
+[Verification and display limits](docs/verification.md) · [Contributing](CONTRIBUTING.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)

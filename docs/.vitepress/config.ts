@@ -30,7 +30,8 @@ export default defineConfig({
             text: 'Guide',
             items: [
               { text: 'Getting Started', link: '/guide/getting-started' },
-              { text: 'Config Schema & Avatars', link: '/guide/schema' }
+              { text: 'Config Schema & Avatars', link: '/guide/schema' },
+              { text: 'Verification', link: '/verification' }
             ]
           }
         ]
@@ -53,7 +54,8 @@ export default defineConfig({
             text: 'ガイド',
             items: [
               { text: 'クイックスタート', link: '/ja/guide/getting-started' },
-              { text: '設定スキーマ＆アバター', link: '/ja/guide/schema' }
+              { text: '設定スキーマ＆アバター', link: '/ja/guide/schema' },
+              { text: '検証記録', link: '/ja/verification' }
             ]
           }
         ]

@@ -7,3 +7,8 @@ avatars/*.jpg
 starter-governance.html
 .DS_Store
 Thumbs.db
+
+.cache/
+artifacts/
+starter-governance.architecture.json
+project-governance-with-avatars.architecture.json

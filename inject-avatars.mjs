@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { escapeHtml, escapedConfig } from './src/config.mjs';
 import { buildTemplateBoardHtml } from './src/board-template.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -11,12 +12,13 @@ export function buildAvatarDataUri(member, org, rootDir = baseDir) {
     const p = path.resolve(rootDir, member.avatar);
     if (fs.existsSync(p)) {
       const ext = path.extname(p).toLowerCase();
+      if (!['.jpg', '.jpeg', '.png', '.svg'].includes(ext)) throw new Error(`Unsupported avatar format: ${ext}`);
       const mime = ext === '.png' ? 'image/png' : ext === '.svg' ? 'image/svg+xml' : 'image/jpeg';
       const b64 = fs.readFileSync(p).toString('base64');
       return `data:${mime};base64,${b64}`;
     }
   }
-  const initials = (member.name || '担当').replace(/\s+/g, '').slice(0, 2);
+  const initials = escapeHtml((member.name || '担当').replace(/\s+/g, '').slice(0, 2));
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
     <rect width="80" height="80" rx="40" fill="#0f172a"/>
     <circle cx="40" cy="30" r="14" fill="${org.color}" opacity="0.85"/>
@@ -52,13 +54,17 @@ export function collectMembersFromConfig(config) {
   return list;
 }
 
-export function enhanceHtmlWithConfig(inputFile, outputFile, config, isWorkflow = false) {
+export function enhanceHtmlWithConfig(inputFile, outputFile, config, isWorkflow = false, avatarRoot = baseDir) {
   let html = fs.readFileSync(inputFile, 'utf8');
+  const notices = fs.readFileSync(path.join(baseDir, 'THIRD_PARTY_NOTICES.md'), 'utf8');
+  html = html.replace('</head>', `<!--\n${notices.replaceAll('--', '—')}\n-->\n</head>`);
   const members = collectMembersFromConfig(config);
   const avatarDataUris = {};
   for (const m of members) {
-    avatarDataUris[m.id] = buildAvatarDataUri(m, config.organizations[m.org] || {});
+    avatarDataUris[m.id] = buildAvatarDataUri(m, config.organizations[m.org] || {}, avatarRoot);
   }
+
+  config = escapedConfig(config);
 
   if (!isWorkflow) {
     // Expand SVG viewBox height to fit the 4-column ロール row + Legend cleanly
@@ -124,11 +130,11 @@ export function enhanceHtmlWithConfig(inputFile, outputFile, config, isWorkflow 
         <g aria-hidden="true" class="template-structure-overlay">
           <!-- Owner Header Pill -->
           <rect x="467" y="12" width="176" height="22" rx="4" fill="rgba(56, 189, 248, 0.18)" stroke="#38bdf8" stroke-width="1.2"/>
-          <text x="555" y="26.5" class="t-primary" font-size="9.2" font-weight="700" text-decoration="underline" text-anchor="middle">プロジェクトオーナー (事業部)</text>
+          <text x="555" y="26.5" class="t-primary" font-size="9.2" font-weight="700" text-decoration="underline" text-anchor="middle">${config.owner.title} ${config.owner.department || ''}</text>
 
           <!-- PM Header Pill -->
           <rect x="740" y="100" width="180" height="22" rx="4" fill="rgba(16, 185, 129, 0.18)" stroke="#10b981" stroke-width="1.2"/>
-          <text x="830" y="114.5" class="t-primary" font-size="9.2" font-weight="700" text-decoration="underline" text-anchor="middle">プロジェクトマネジメント</text>
+          <text x="830" y="114.5" class="t-primary" font-size="9.2" font-weight="700" text-decoration="underline" text-anchor="middle">${config.pm.title}</text>
 
           <!-- Left-Side Row Labels: 部署 / 担当者 / ロール -->
           <rect x="10" y="236" width="50" height="26" rx="5" fill="rgba(71, 85, 105, 0.38)" stroke="rgba(148, 163, 184, 0.4)" stroke-width="1"/>
@@ -209,7 +215,7 @@ export function enhanceHtmlWithConfig(inputFile, outputFile, config, isWorkflow 
   html = html.replace('</defs>', `${clipDefs.join('\n')}\n        </defs>`);
 
   // Inject interactive HTML/CSS Template Board with avatars below the diagram
-  const boardHtml = buildTemplateBoardHtml(config, avatarDataUris, members);
+  const boardHtml = buildTemplateBoardHtml(config, avatarDataUris, members, isWorkflow);
   html = html.replace('</body>', `${boardHtml}\n</body>`);
 
   fs.writeFileSync(outputFile, html, 'utf8');
@@ -227,12 +233,14 @@ if (isMain) {
     path.join(baseDir, 'project-governance.architecture.html'),
     path.join(baseDir, 'project-governance-with-avatars.html'),
     config,
-    false
+    false,
+    path.dirname(configPath)
   );
   enhanceHtmlWithConfig(
     path.join(baseDir, 'org-lineage-swimlane.workflow.html'),
     path.join(baseDir, 'org-lineage-swimlane-with-avatars.html'),
     config,
-    true
+    true,
+    path.dirname(configPath)
   );
 }

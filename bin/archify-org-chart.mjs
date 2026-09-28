@@ -3,12 +3,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { validateConfig } from '../src/config.mjs';
+import os from 'node:os';
 import { enhanceHtmlWithConfig } from '../inject-avatars.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 
-function generateArchitectureSpec(config) {
+export function generateArchitectureSpec(config) {
   const orgs = config.organizations || {};
   const legendEntries = {
     frontend: { label: '事業部', visible: false },
@@ -112,7 +114,7 @@ function generateArchitectureSpec(config) {
 
       if (mIdx === 0) {
         connections.push({
-          from: owner.id,
+          from: m.parent || owner.id,
           to: m.id,
           variant: 'emphasis',
           fromSide: 'bottom',
@@ -214,7 +216,6 @@ function generateArchitectureSpec(config) {
       subtitle: config.projectSubtitle || '',
       output: 'project-governance.architecture.html',
       visual_preset: 'blueprint',
-      animation: 'trace',
       quality_profile: 'showcase',
       legend: {
         mode: 'all',
@@ -230,9 +231,10 @@ function generateArchitectureSpec(config) {
 }
 
 function findArchifyCli() {
+  if (process.env.ARCHIFY_CLI) return fs.existsSync(process.env.ARCHIFY_CLI) ? process.env.ARCHIFY_CLI : null;
   const candidates = [
     process.env.ARCHIFY_CLI,
-    path.resolve(rootDir, '../archify/archify/bin/archify.mjs'),
+    path.resolve(rootDir, '.cache/archify/archify/bin/archify.mjs'),
     path.resolve(rootDir, 'vendor/archify/bin/archify.mjs')
   ].filter(Boolean);
   for (const c of candidates) {
@@ -241,41 +243,35 @@ function findArchifyCli() {
   return null;
 }
 
-const args = process.argv.slice(2);
-const cmd = args[0] || 'build';
-const configArg = args[1] || path.join(rootDir, 'examples/ai-retail-dx.org.json');
-const outArg = args[2] || path.join(rootDir, 'project-governance-with-avatars.html');
 
-if (cmd === 'build') {
-  const configPath = path.resolve(configArg);
-  const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-  const spec = generateArchitectureSpec(config);
-  const specOut = path.join(rootDir, 'project-governance.architecture.json');
-  const baseHtmlOut = path.join(rootDir, 'project-governance.architecture.html');
-
-  fs.writeFileSync(specOut, JSON.stringify(spec, null, 2) + '\n', 'utf8');
-  console.log(`[1/3] Generated Archify spec: ${specOut}`);
-
+export function build(configPath, outputPath, { baseOutput, specOutput } = {}) {
+  const config = validateConfig(JSON.parse(fs.readFileSync(configPath, 'utf8')));
+  const out = path.resolve(outputPath);
+  if (!out.endsWith('.html')) throw new Error('Output must end in .html');
   const archifyCli = findArchifyCli();
-  if (archifyCli) {
-    execFileSync(
-      process.execPath,
-      [archifyCli, 'deliver', 'architecture', specOut, baseHtmlOut, '--quality', 'showcase'],
-      { stdio: 'inherit' }
-    );
-    console.log(`[2/3] Compiled interactive SVG via Archify: ${baseHtmlOut}`);
-  } else {
-    console.log(`[2/3] Using bundled Archify base HTML: ${baseHtmlOut}`);
-  }
+  if (!archifyCli) throw new Error('Archify is required. Run npm run setup:archify or set ARCHIFY_CLI.');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'archify-org-'));
+  try {
+    const specOut = path.join(tmp, 'chart.json');
+    const baseHtml = path.join(tmp, 'chart.html');
+    fs.writeFileSync(specOut, JSON.stringify(generateArchitectureSpec(config), null, 2) + '\n');
+    execFileSync(process.execPath, [archifyCli, 'deliver', 'architecture', specOut, baseHtml, '--quality', 'showcase', '--json'], { stdio: 'inherit' });
+    const enhanced = path.join(tmp, 'enhanced.html');
+    enhanceHtmlWithConfig(baseHtml, enhanced, config, false, path.dirname(configPath));
+    fs.mkdirSync(path.dirname(out), { recursive: true });
+    fs.copyFileSync(enhanced, out);
+    fs.copyFileSync(specOut, out.replace(/\.html$/, '.architecture.json'));
+    if (baseOutput) fs.copyFileSync(baseHtml, baseOutput);
+    if (specOutput) fs.copyFileSync(specOut, specOutput);
+    console.log('Built ' + out);
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+}
 
-  enhanceHtmlWithConfig(baseHtmlOut, path.resolve(outArg), config, false);
-
-  const wfHtml = path.join(rootDir, 'org-lineage-swimlane.workflow.html');
-  const wfOut = path.join(rootDir, 'org-lineage-swimlane-with-avatars.html');
-  if (fs.existsSync(wfHtml)) {
-    enhanceHtmlWithConfig(wfHtml, wfOut, config, true);
-  }
-  console.log(`[3/3] Built avatar-equipped Project Organization Chart: ${path.resolve(outArg)}`);
-} else {
-  console.log('Usage: node bin/archify-org-chart.mjs build [config.org.json] [output.html]');
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const [command = 'build', config = path.join(rootDir, 'examples/ai-retail-dx.org.json'), output = path.join(rootDir, 'project-governance-with-avatars.html')] = process.argv.slice(2);
+  try {
+    if (command === '--help' || command === 'help') console.log('Usage: archify-org-chart build [config.org.json] [output.html]');
+    else if (command !== 'build') throw new Error('Unknown command: ' + command);
+    else build(path.resolve(config), output);
+  } catch (error) { console.error(error.message); process.exitCode = 1; }
 }

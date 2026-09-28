@@ -24,11 +24,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+
+      - name: Set up pinned diagram engine
+        run: npm run setup:archify
+
+      - name: Verify generator and regenerate demos
+        run: |
+          npm test
+          npm run build:demos
 
       - name: Install VitePress dependencies
         working-directory: docs
-        run: npm install
+        run: npm ci
 
       - name: Build VitePress documentation & demos
         working-directory: docs

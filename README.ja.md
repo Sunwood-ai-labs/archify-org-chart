@@ -55,6 +55,9 @@
 ```bash
 git clone https://github.com/Sunwood-ai-labs/archify-org-chart.git
 cd archify-org-chart
+
+# Node.js 20以上とGitが必要です。固定版の描画エンジンを取得します。
+npm run setup:archify
 ```
 
 ### 2. 体制図設定 JSON（`*.org.json`）を編集
@@ -130,10 +133,22 @@ GitHub Pages 上で日英バイリンガルの使い方ガイドと、ブラウ�
 ローカルでドキュメントサイトを起動する場合：
 
 ```bash
-npm --prefix docs install
+npm --prefix docs ci
 npm run docs:dev
 ```
 
 ## 📄 ライセンス
 
 [MIT License](./LICENSE) の下で公開されています。ダイアグラム描画エンジンとして [`tt-a1i/archify`](https://github.com/tt-a1i/archify) を使用しています。
+
+## 🔧 生成・公開の仕組み
+
+- 初回は必ず `npm run setup:archify` を実行してください。描画エンジンを固定コミットで `.cache/archify` に取得します。既存のエンジンを使う場合は環境変数 `ARCHIFY_CLI` に `archify.mjs` の絶対パスを指定できます。
+- アバターの相対パスは **JSONファイルのあるフォルダー基準**です。例の `examples/` 内では `../avatars/thumb/sato_sponsor.jpg`、リポジトリ直下の設定なら `avatars/thumb/sato_sponsor.jpg` とします。
+- `npm run build:starter` でイニシャル画像のスターターを生成できます。カスタム出力と同名の `.architecture.json` も保存されます。既存のサンプルやスイムレーンは書き換えません。
+- `npm run build:demos` は両デモを再生成し、公開ディレクトリへ同期します。スイムレーンは専用の `org-lineage-swimlane.workflow.json` から生成する固定サンプルです。
+- 表形式の体制図はページ末尾の「プロジェクト体制図を表で見る」から開きます。PM補佐は表に表示され、図にも同じIDがあれば選択できます。
+- 図の固定操作UIは英語です。日本語の人物名・説明と日英ドキュメントを提供します。
+- 生成後のHTMLは共有できます。生成・プレビューには外部フォントの読み込みが発生する場合がありますが、図とアバターのデータはHTMLに埋め込まれます。
+
+[検証記録と表示上の制約](docs/ja/verification.md) · [Contributing](CONTRIBUTING.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)

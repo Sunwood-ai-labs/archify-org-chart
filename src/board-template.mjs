@@ -1,4 +1,4 @@
-export function buildTemplateBoardHtml(config, avatarDataUris, members) {
+export function buildTemplateBoardHtml(config, avatarDataUris, members, isWorkflow = false) {
   const orgs = config.organizations;
   const owner = config.owner;
   const ownerOrg = orgs[owner.org];
@@ -54,21 +54,23 @@ export function buildTemplateBoardHtml(config, avatarDataUris, members) {
             </div>`;
         })
         .join('');
-      return `<div class="tpl-cell tpl-members-cell">${mCards}</div>`;
+      return `<div class="tpl-cell tpl-members-cell" data-department="${d.name}">${mCards}</div>`;
     })
     .join('');
 
   const deptRolesHtml = config.departments
     .map(d => {
       const rItems = d.roles.map(r => `<li>${r}</li>`).join('');
-      return `<div class="tpl-cell tpl-roles-cell"><ul class="tpl-role-list">${rItems}</ul></div>`;
+      return `<div class="tpl-cell tpl-roles-cell" data-department="${d.name}"><ul class="tpl-role-list">${rItems}</ul></div>`;
     })
     .join('');
 
   return `
+  <details class="org-board-details no-print"><summary>プロジェクト体制図を表で見る / Organization board</summary>
   <section class="org-lineage-board no-print" aria-label="プロジェクト体制図（テンプレート準拠・アバター付き）">
-    <script>if (navigator.webdriver && window.location.search.indexOf('showTree=1') === -1) { document.currentScript.parentElement.style.display = 'none'; }</script>
     <style>
+      .org-board-details { max-width: 1280px; margin: 1rem auto; }
+      .org-board-details > summary { cursor: pointer; padding: .8rem; color: var(--text, #94a3b8); }
       .org-lineage-board {
         max-width: 1280px;
         margin: 1.5rem auto 2.5rem;
@@ -325,6 +327,20 @@ export function buildTemplateBoardHtml(config, avatarDataUris, members) {
         color: var(--text, #e2e8f0);
       }
       [data-theme="light"] .tpl-role-list { color: #1e293b; }
+      .tpl-person:focus-visible { outline: 3px solid #38bdf8; }
+      .tpl-cell { min-width: 0; }
+      .tpl-person-info { overflow-wrap: anywhere; }
+      @media (max-width: 900px) {
+        .toolbar { position: relative; top: auto; right: auto; left: auto; transform: none; width: auto; max-width: 100%; flex-wrap: wrap; justify-content: flex-start; margin: 0 1rem 1rem; }
+        .org-lineage-board { padding: .75rem; }
+        .tpl-top-tree { display: flex; flex-direction: column; gap: 1rem; margin: 0; }
+        .tpl-pm-branch-wrap { margin: 0; align-self: stretch; }
+        .tpl-owner-box, .tpl-pm-box { width: 100%; min-width: 0; box-sizing: border-box; }
+        .tpl-trunk-vertical, .tpl-pm-branch-line, .tpl-fork-grid { display: none; }
+        .tpl-matrix-row { grid-template-columns: 1fr; }
+        .tpl-row-label { justify-content: flex-start; border: 0; margin-top: .75rem; }
+        .tpl-cell::before { content: attr(data-department); font-weight: bold; }
+      }
     </style>
 
     <div class="tpl-date-row">${config.date}</div>
@@ -399,7 +415,18 @@ export function buildTemplateBoardHtml(config, avatarDataUris, members) {
       ${deptRolesHtml}
     </div>
   </section>
+  </details>
   <script>
+    document.querySelectorAll('.org-lineage-board .tpl-person').forEach(card => {
+      const id = card.getAttribute('onclick').match(/'([^']+)'/)[1];
+      if (!document.getElementById('node-' + id)) {
+        card.removeAttribute('onclick'); card.style.cursor = 'default'; return;
+      }
+      card.setAttribute('role', 'button'); card.tabIndex = 0;
+      card.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); card.click(); }
+      });
+    });
     window.__focusOrgNode = function(nodeId) {
       const g = document.getElementById('node-' + nodeId);
       if (g) {

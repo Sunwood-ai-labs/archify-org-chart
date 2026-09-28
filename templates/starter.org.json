@@ -45,8 +45,7 @@
     "title": "プロジェクトオーナー",
     "department": "(事業部)",
     "role": "プロジェクトオーナー (事業部)",
-    "org": "client_org",
-    "avatar": "avatars/thumb/sato_sponsor.jpg"
+    "org": "client_org"
   },
   "pm": {
     "title": "プロジェクトマネジメント",
@@ -55,8 +54,7 @@
       "name": "〇〇 〇〇",
       "badge": "(主)",
       "role": "プロジェクトマネージャー (主)",
-      "org": "prime_org",
-      "avatar": "avatars/thumb/suzuki_pm.jpg"
+      "org": "prime_org"
     },
     "members": [
       {
@@ -64,8 +62,7 @@
         "name": "〇〇 〇〇",
         "badge": "",
         "role": "PMO / 推進補佐",
-        "org": "prime_org",
-        "avatar": "avatars/thumb/ito_pmo.jpg"
+        "org": "prime_org"
       }
     ]
   },
@@ -81,8 +78,7 @@
           "badge": "(主)",
           "role": "事業部 主担当",
           "org": "client_org",
-          "parent": "owner_lead",
-          "avatar": "avatars/thumb/takahashi_po.jpg"
+          "parent": "owner_lead"
         },
         {
           "id": "biz_sub",
@@ -90,8 +86,7 @@
           "badge": "",
           "role": "┗ 事業部 担当",
           "org": "client_org",
-          "parent": "biz_lead",
-          "avatar": "avatars/thumb/sasaki_bpr.jpg"
+          "parent": "biz_lead"
         }
       ],
       "roles": [
@@ -111,8 +106,7 @@
           "badge": "(主)",
           "role": "開発T 主担当",
           "org": "prime_org",
-          "parent": "pm_lead",
-          "avatar": "avatars/thumb/tanaka_arch.jpg"
+          "parent": "pm_lead"
         },
         {
           "id": "dev_sub",
@@ -120,8 +114,7 @@
           "badge": "",
           "role": "┗ 開発T 担当",
           "org": "partner_org",
-          "parent": "dev_lead",
-          "avatar": "avatars/thumb/watanabe_ai.jpg"
+          "parent": "dev_lead"
         }
       ],
       "roles": [
@@ -141,8 +134,7 @@
           "badge": "(主)",
           "role": "運用T 主担当",
           "org": "ops_org",
-          "parent": "pm_lead",
-          "avatar": "avatars/thumb/nakamura_sre.jpg"
+          "parent": "pm_lead"
         },
         {
           "id": "ops_sub",
@@ -150,8 +142,7 @@
           "badge": "",
           "role": "┗ 運用T 担当",
           "org": "ops_org",
-          "parent": "ops_lead",
-          "avatar": "avatars/thumb/kato_ops.jpg"
+          "parent": "ops_lead"
         }
       ],
       "roles": [
@@ -171,8 +162,7 @@
           "badge": "(主)",
           "role": "品質管理T 主担当",
           "org": "qa_org",
-          "parent": "pm_lead",
-          "avatar": "avatars/thumb/ito_pmo.jpg"
+          "parent": "pm_lead"
         },
         {
           "id": "qa_sub",
@@ -180,8 +170,7 @@
           "badge": "",
           "role": "┗ 品質管理T 担当",
           "org": "qa_org",
-          "parent": "qa_lead",
-          "avatar": "avatars/thumb/matsumoto_qa.jpg"
+          "parent": "qa_lead"
         }
       ],
       "roles": [

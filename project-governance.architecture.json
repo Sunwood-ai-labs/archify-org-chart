@@ -6,7 +6,6 @@
     "subtitle": "プロジェクトオーナー（頂点）➔ プロジェクトマネジメント（右分岐）➔ 4部署（事業部・開発T・運用T・品質管理T）× 4社横断系統ツリー",
     "output": "project-governance.architecture.html",
     "visual_preset": "blueprint",
-    "animation": "trace",
     "quality_profile": "showcase",
     "legend": {
       "mode": "all",
@@ -339,7 +338,7 @@
       "route": "straight"
     },
     {
-      "from": "sato_sponsor",
+      "from": "suzuki_pm",
       "to": "tanaka_arch",
       "variant": "emphasis",
       "fromSide": "bottom",
@@ -368,7 +367,7 @@
       "route": "straight"
     },
     {
-      "from": "sato_sponsor",
+      "from": "suzuki_pm",
       "to": "nakamura_sre",
       "variant": "emphasis",
       "fromSide": "bottom",
@@ -383,7 +382,7 @@
       "route": "straight"
     },
     {
-      "from": "sato_sponsor",
+      "from": "suzuki_pm",
       "to": "ito_pmo",
       "variant": "emphasis",
       "fromSide": "bottom",
