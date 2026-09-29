@@ -48,6 +48,32 @@ From a single JSON configuration file (`*.org.json`), it generates a self-contai
 
 ![Workflow Swimlane Dark Preview](./assets/swimlane-dark.png)
 
+## 🎨 Layout Variations (8 ideas)
+
+The same `*.org.json` also renders eight alternative, self-contained layouts. They share one rule — **color means company only** — merge organizations that belong to the same company, and mark dual roles with `兼`.
+
+```bash
+npm run build:variants   # → variants/*.html (+ docs/public/variants for GitHub Pages)
+```
+
+👉 [Open the live gallery](https://sunwood-ai-labs.github.io/archify-org-chart/variants/)
+
+**Cross-cutting views**
+
+| 01 Clean Tree | 02 Company × Team Matrix |
+| :---: | :---: |
+| ![Clean Tree](./assets/variants/01-clean-tree.png) | ![Matrix](./assets/variants/02-matrix.png) |
+| **03 Interactive Explorer** | **04 Radial Map** |
+| ![Explorer](./assets/variants/03-explorer.png) | ![Radial](./assets/variants/04-radial.png) |
+
+**Top-down views**
+
+| 05 Top-down Tree | 06 Rank-aligned Grid |
+| :---: | :---: |
+| ![Top-down Tree](./assets/variants/05-topdown-tree.png) | ![Rank Grid](./assets/variants/06-rank-grid.png) |
+| **07 Span-of-Control Icicle** | **08 Vertical Outline (mobile)** |
+| ![Icicle](./assets/variants/07-icicle.png) | ![Outline](./assets/variants/08-outline.png) |
+
 ## 🚀 Quick Start
 
 ### 1. Clone the Repository

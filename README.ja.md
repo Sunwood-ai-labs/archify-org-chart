@@ -48,6 +48,32 @@
 
 ![マルチ組織スイムレーン図](./assets/swimlane-dark.png)
 
+## 🎨 レイアウトバリエーション（8案）
+
+同じ `*.org.json` から、見せ方の異なる8種類の体制図（単一HTML・アバター埋め込み済み）も生成できます。共通ルールは **「色＝所属会社だけ」**。同じ会社の組織は1社に統合し、兼務は「兼」で表示します。
+
+```bash
+npm run build:variants   # → variants/*.html（GitHub Pages 用に docs/public/variants にも出力）
+```
+
+👉 [ライブギャラリーを開く](https://sunwood-ai-labs.github.io/archify-org-chart/variants/)
+
+**横断ビュー**
+
+| 01 クリーンツリー | 02 会社×チーム マトリクス |
+| :---: | :---: |
+| ![クリーンツリー](./assets/variants/01-clean-tree.png) | ![マトリクス](./assets/variants/02-matrix.png) |
+| **03 インタラクティブ・エクスプローラー** | **04 放射型マップ** |
+| ![エクスプローラー](./assets/variants/03-explorer.png) | ![放射型マップ](./assets/variants/04-radial.png) |
+
+**上から下へ読む案**
+
+| 05 トップダウン・ツリー | 06 階層そろえグリッド |
+| :---: | :---: |
+| ![トップダウン・ツリー](./assets/variants/05-topdown-tree.png) | ![階層そろえグリッド](./assets/variants/06-rank-grid.png) |
+| **07 責任範囲マップ（アイシクル）** | **08 縦スクロール・アウトライン（スマホ向け）** |
+| ![責任範囲マップ](./assets/variants/07-icicle.png) | ![アウトライン](./assets/variants/08-outline.png) |
+
 ## 🚀 クイックスタート（誰でもすぐ作れる3ステップ）
 
 ### 1. リポジトリをクローン

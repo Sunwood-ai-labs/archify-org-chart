@@ -14,7 +14,8 @@
     "docs:preview": "npm --prefix docs run docs:preview",
     "setup:archify": "node scripts/setup-archify.mjs",
     "test": "node --test",
-    "build:demos": "node scripts/build-demos.mjs"
+    "build:demos": "node scripts/build-demos.mjs",
+    "build:variants": "node scripts/build-variants.mjs"
   },
   "keywords": [
     "archify",
