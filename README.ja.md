@@ -74,6 +74,22 @@ npm run build:variants   # → variants/*.html（GitHub Pages 用に docs/public
 | **07 責任範囲マップ（アイシクル）** | **08 縦スクロール・アウトライン（スマホ向け）** |
 | ![責任範囲マップ](./assets/variants/07-icicle.png) | ![アウトライン](./assets/variants/08-outline.png) |
 
+## 🖥️ 16:9 スライド版（会社資料向け4テイスト）
+
+「階層そろえグリッド」（06）を 1920×1080 固定のスライドに仕上げたものです。3840×2160 の PNG を PowerPoint や Googleスライドにそのまま貼るか、HTML を印刷して 16:9 の PDF にできます。
+
+```bash
+npm run build:slides   # → slides/*.html + assets/slides/*.png（Chrome または Edge が必要。CHROME_PATH で指定可）
+```
+
+👉 [スライドギャラリーを開く](https://sunwood-ai-labs.github.io/archify-org-chart/slides/)
+
+| A ネイビー・コーポレート | B ミニマル・モノトーン |
+| :---: | :---: |
+| ![ネイビー・コーポレート](./assets/slides/a-navy.png) | ![ミニマル・モノトーン](./assets/slides/b-mono.png) |
+| **C クラシック罫線（写真なし）** | **D ダーク・キーノート** |
+| ![クラシック罫線](./assets/slides/c-classic.png) | ![ダーク・キーノート](./assets/slides/d-dark.png) |
+
 ## 🚀 クイックスタート（誰でもすぐ作れる3ステップ）
 
 ### 1. リポジトリをクローン

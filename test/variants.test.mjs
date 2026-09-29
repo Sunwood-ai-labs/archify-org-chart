@@ -34,3 +34,17 @@ test('build-variants writes eight self-contained pages that include every member
   }
   assert.ok(fs.existsSync(path.join(out, 'index.html')));
 });
+
+test('build-slides writes four fixed 16:9 slide pages that include every member', () => {
+  const out = fs.mkdtempSync(path.join(os.tmpdir(), 'slides-'));
+  const r = spawnSync(process.execPath, [path.join(root, 'scripts/build-slides.mjs'), config, out], { encoding: 'utf8' });
+  assert.equal(r.status, 0, r.stderr);
+  const pages = fs.readdirSync(out).filter(f => /^[a-d]-.*\.html$/.test(f));
+  assert.equal(pages.length, 4);
+  const names = JSON.parse(fs.readFileSync(config)).departments.flatMap(d => d.members.map(m => m.name));
+  for (const f of pages) {
+    const html = fs.readFileSync(path.join(out, f), 'utf8');
+    assert.ok(html.includes('width:1920px;height:1080px'), `${f} is not a 16:9 canvas`);
+    for (const n of names) assert.ok(html.includes(n), `${f} is missing ${n}`);
+  }
+});

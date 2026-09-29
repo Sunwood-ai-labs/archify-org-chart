@@ -74,6 +74,22 @@ npm run build:variants   # → variants/*.html (+ docs/public/variants for GitHu
 | **07 Span-of-Control Icicle** | **08 Vertical Outline (mobile)** |
 | ![Icicle](./assets/variants/07-icicle.png) | ![Outline](./assets/variants/08-outline.png) |
 
+## 🖥️ 16:9 Slide Editions (4 corporate tastes)
+
+The rank-aligned grid (variant 06) is also available as fixed 1920×1080 slides — paste the 3840×2160 PNG straight into PowerPoint / Google Slides, or print the HTML to a 16:9 PDF.
+
+```bash
+npm run build:slides   # → slides/*.html + assets/slides/*.png (needs Chrome or Edge; CHROME_PATH to override)
+```
+
+👉 [Open the slide gallery](https://sunwood-ai-labs.github.io/archify-org-chart/slides/)
+
+| A Navy Corporate | B Minimal Monotone |
+| :---: | :---: |
+| ![Navy Corporate](./assets/slides/a-navy.png) | ![Minimal Monotone](./assets/slides/b-mono.png) |
+| **C Classic Ruled (no photos)** | **D Dark Keynote** |
+| ![Classic Ruled](./assets/slides/c-classic.png) | ![Dark Keynote](./assets/slides/d-dark.png) |
+
 ## 🚀 Quick Start
 
 ### 1. Clone the Repository

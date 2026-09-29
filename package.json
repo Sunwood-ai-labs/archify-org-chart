@@ -15,7 +15,8 @@
     "setup:archify": "node scripts/setup-archify.mjs",
     "test": "node --test",
     "build:demos": "node scripts/build-demos.mjs",
-    "build:variants": "node scripts/build-variants.mjs"
+    "build:variants": "node scripts/build-variants.mjs",
+    "build:slides": "node scripts/build-slides.mjs --png"
   },
   "keywords": [
     "archify",

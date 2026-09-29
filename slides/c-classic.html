@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>体制図スライド クラシック罫線</title>
+<meta name="description" content="写真なし・文字主体。PowerPoint で作ったような罫線の体制図で、役員会や社外提出向け">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:#8a8f98;overflow:hidden;font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;-webkit-font-smoothing:antialiased}
+.stage{position:fixed;inset:0;display:grid;place-items:center}
+.slide{--bg:#ffffff;--ink:#222222;--ink-2:#4a4a4a;--ink-3:#7a7a7a;--line:#c9d3df;--wire:#333333;--band:#ffffff;--card:#ffffff;--card-line:#6f86a3;--accent:#1f4e79;--head-bg:#1f4e79;--head-ink:#ffffff;--tag-bg:#1f4e79;--tag-ink:#ffffff;--radius:2px;position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg);color:var(--ink);
+  padding:44px 72px 26px;display:flex;flex-direction:column;overflow:hidden}
+.hd{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.eyebrow{font-size:15px;font-weight:700;letter-spacing:.14em;color:var(--ink-3)}
+.hd h1{margin:4px 0 0;font-size:40px;line-height:1.2;font-weight:700}
+.hd h1 small{font-size:24px;font-weight:500;color:var(--ink-2);margin-left:14px}
+.legend{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 26px;max-width:760px;padding-bottom:6px}
+.lg{display:inline-flex;align-items:center;gap:8px;font-size:17px;font-weight:700;color:var(--ink);white-space:nowrap}
+.lg i{width:14px;height:14px;border-radius:50%;background:var(--c)}
+.lg small{font-size:14px;font-weight:400;color:var(--ink-2)}
+.body{position:relative;flex:1;min-height:0;margin-top:20px}
+.grid{position:relative;display:grid;height:100%;border-radius:var(--radius)}
+.wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
+.wires path{fill:none;stroke:var(--wire);stroke-width:2}
+.corner{grid-row:1;grid-column:1}
+.colh{grid-row:1;display:flex;align-items:center;gap:12px;padding:0 20px;font-size:22px;font-weight:700;border-left:1px solid var(--bg)}
+.colh .num{font-size:15px;color:var(--ink-3);font-weight:700}
+.colh .cnt{margin-left:auto;font-size:16px;font-weight:400;color:var(--ink-2)}
+.rlab{grid-column:1;display:flex;align-items:center;padding:0 14px;font-size:17px;white-space:nowrap;font-weight:700;color:var(--ink-2)}
+.cell{display:flex;gap:18px;justify-content:center;align-items:center;padding:12px 14px;min-height:0}
+.odd{background:var(--band)}
+.card{position:relative;z-index:2;display:flex;gap:14px;align-items:center;width:290px;background:var(--card);border:1px solid var(--card-line);border-radius:var(--radius);padding:7px 12px}
+.cell.span .card{width:auto;min-width:290px}
+.card .av{width:50px;height:50px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 3px var(--bg),0 0 0 6px var(--c)}
+.card .m{min-width:0}
+.nm{font-size:20px;font-weight:700;white-space:nowrap;line-height:1.3}
+.rl{font-size:15px;color:var(--ink-2);line-height:1.35}
+.co{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink-2);margin-top:2px;white-space:nowrap}
+.co i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.tag{display:inline-block;font-size:12.5px;font-weight:700;line-height:1;padding:4px 8px;border-radius:999px;vertical-align:3px;background:var(--tag-bg);color:var(--tag-ink)}
+.note{display:inline-block;margin-top:3px;font-size:12.5px;font-weight:700;background:var(--tag-bg);color:var(--tag-ink);border-radius:4px;padding:1px 7px}
+.card.text{display:block;text-align:center;padding:5px 10px 7px;width:280px}
+.cell.span .card.text{min-width:280px}
+.card.text .unit{font-size:13.5px;font-weight:700;color:var(--accent);line-height:1.4}
+.card.text .nm{font-size:22px;line-height:1.3}
+.card.text .rl{font-size:14.5px;white-space:nowrap}
+.card.text .co{display:inline;font-size:13.5px;margin:0}
+.pmbox{position:relative;z-index:2;border:2px dashed var(--card-line);border-radius:calc(var(--radius) + 4px);padding:4px 12px 10px;background:var(--bg)}
+.pml{font-size:13px;font-weight:700;color:var(--ink-3);letter-spacing:.08em;text-align:center;margin-bottom:4px}
+.pmrow{display:flex;gap:14px}
+.roles{background:var(--band)}
+.cell.roles{display:block;padding:10px 20px}
+.cell.roles ul{margin:0;padding-left:20px;font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.ft{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;font-size:14px;color:var(--ink-3);letter-spacing:.04em}
+
+.hd{border-bottom:2px solid var(--accent);padding-bottom:16px}
+.colh{background:var(--head-bg);color:var(--head-ink);justify-content:center}
+.colh .num,.colh .cnt{color:rgba(255,255,255,.8)}
+.rlab{background:#eef2f7;color:var(--accent);align-items:center;text-align:center}
+.cell{border-left:1px solid var(--line);border-bottom:1px solid var(--line)}
+.grid{border:1px solid var(--line)}
+.card{border:1.5px solid var(--card-line);border-top:7px solid var(--c)}
+.wires path{stroke-width:1.6}
+.pmbox{border:1.5px dashed var(--card-line)}
+@page{size:1920px 1080px;margin:0}
+@media print{body{background:none;overflow:visible}.stage{position:static}.slide{position:relative;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="stage">
+<div class="slide" id="slide">
+  <div class="hd">
+    <div>
+      <div class="eyebrow">PROJECT ORGANIZATION ・ 2026年 9月 27日</div>
+      <h1>次世代AI店舗DXプロジェクト<small>推進体制</small></h1>
+    </div>
+    <div class="legend"><span class="lg" style="--c:#38bdf8"><i></i>ネクストリテール<small>発注元</small></span><span class="lg" style="--c:#10b981"><i></i>アークシステムズ<small>プライム</small></span><span class="lg" style="--c:#a855f7"><i></i>イロドリAIラボ<small>AIパートナー</small></span><span class="lg" style="--c:#f43f5e"><i></i>クラウドフォージ<small>SREパートナー</small></span></div>
+  </div>
+  <div class="body">
+    <div class="grid" id="grid" style="grid-template-columns:150px minmax(0,1fr) minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);grid-template-rows:54px minmax(0,1fr) minmax(0,1.25fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) auto">
+      <svg class="wires" id="wires" aria-hidden="true"></svg>
+      <div class="corner"></div><div class="colh"><span class="num">01</span>事業部<span class="cnt">2名</span></div><div class="colh"><span class="num">02</span>開発T<span class="cnt">4名</span></div><div class="colh"><span class="num">03</span>運用T<span class="cnt">2名</span></div><div class="colh"><span class="num">04</span>品質管理T<span class="cnt">2名</span></div><div class="rlab even" style="grid-row:2">オーナー</div><div class="cell even span" style="grid-row:2;grid-column:2/-1"><div class="card text" data-id="sato_sponsor" data-parent="" data-col="gov" style="--c:#38bdf8">
+      <div class="unit">オーナー</div>
+      <div class="nm">佐藤 健一</div>
+      <div class="rl">執行役員 / 統括オーナー<span class="co">（ネクストリテール）</span></div>
+    </div></div><div class="rlab odd" style="grid-row:3">統括・PM</div><div class="cell odd" style="grid-row:3;grid-column:2"></div><div class="cell odd span" style="grid-row:3;grid-column:3/6"><div class="pmbox"><div class="pml">プロジェクトマネジメント</div><div class="pmrow"><div class="card text" data-id="suzuki_pm" data-parent="sato_sponsor" data-col="pm" style="--c:#10b981">
+      <div class="unit">PM 主担当</div>
+      <div class="nm">鈴木 誠</div>
+      <div class="rl">統括PM / プライム責任者<span class="co">（アークシステムズ）</span></div>
+    </div><div class="card text" data-id="ito_pmo" data-parent="suzuki_pm" data-col="pm" style="--c:#10b981">
+      <div class="unit">PM PMO補佐</div>
+      <div class="nm">伊藤 彩乃</div>
+      <div class="rl">PMO・品質ゲート連携<span class="co">（アークシステムズ）</span></div><div class="note">兼 品質管理T 主担当</div>
+    </div></div></div></div><div class="rlab even" style="grid-row:4">主担当</div><div class="cell even" style="grid-row:4;grid-column:2"><div class="card text" data-id="takahashi_po" data-parent="sato_sponsor" data-col="0" style="--c:#38bdf8">
+      <div class="unit">事業部 主担当</div>
+      <div class="nm">高橋 美咲</div>
+      <div class="rl">要件定義<span class="co">（ネクストリテール）</span></div>
+    </div></div><div class="cell even" style="grid-row:4;grid-column:3"><div class="card text" data-id="tanaka_arch" data-parent="suzuki_pm" data-col="1" style="--c:#10b981">
+      <div class="unit">開発T 主担当</div>
+      <div class="nm">田中 翔太</div>
+      <div class="rl">全体設計<span class="co">（アークシステムズ）</span></div>
+    </div></div><div class="cell even" style="grid-row:4;grid-column:4"><div class="card text" data-id="nakamura_sre" data-parent="suzuki_pm" data-col="2" style="--c:#f43f5e">
+      <div class="unit">運用T 主担当</div>
+      <div class="nm">中村 剛</div>
+      <div class="rl">SRE・Sec<span class="co">（クラウドフォージ）</span></div>
+    </div></div><div class="cell even" style="grid-row:4;grid-column:5"><div class="card text" data-id="ito_pmo" data-parent="suzuki_pm" data-col="3" style="--c:#10b981">
+      <div class="unit">品質管理T 主担当</div>
+      <div class="nm">伊藤 彩乃</div>
+      <div class="rl">QA統括<span class="co">（アークシステムズ）</span></div><div class="note">兼 PM PMO補佐</div>
+    </div></div><div class="rlab odd" style="grid-row:5">メンバー</div><div class="cell odd" style="grid-row:5;grid-column:2"><div class="card text" data-id="sasaki_bpr" data-parent="takahashi_po" data-col="0" style="--c:#38bdf8">
+      <div class="unit">事業部</div>
+      <div class="nm">佐々木 遥</div>
+      <div class="rl">店舗BPR・UAT<span class="co">（ネクストリテール）</span></div>
+    </div></div><div class="cell odd" style="grid-row:5;grid-column:3"><div class="card text" data-id="yamamoto_dev" data-parent="tanaka_arch" data-col="1" style="--c:#10b981">
+      <div class="unit">開発T</div>
+      <div class="nm">山本 拓海</div>
+      <div class="rl">UI・API実装<span class="co">（アークシステムズ）</span></div>
+    </div><div class="card text" data-id="watanabe_ai" data-parent="tanaka_arch" data-col="1" style="--c:#a855f7">
+      <div class="unit">開発T AIリード</div>
+      <div class="nm">渡辺 蓮</div>
+      <div class="rl">Agent設計<span class="co">（イロドリAIラボ）</span></div>
+    </div></div><div class="cell odd" style="grid-row:5;grid-column:4"><div class="card text" data-id="kato_ops" data-parent="nakamura_sre" data-col="2" style="--c:#f43f5e">
+      <div class="unit">運用T</div>
+      <div class="nm">加藤 大輔</div>
+      <div class="rl">基盤監視・運用<span class="co">（クラウドフォージ）</span></div>
+    </div></div><div class="cell odd" style="grid-row:5;grid-column:5"><div class="card text" data-id="matsumoto_qa" data-parent="ito_pmo" data-col="3" style="--c:#10b981">
+      <div class="unit">品質管理T</div>
+      <div class="nm">松本 凛</div>
+      <div class="rl">品質検証・監査<span class="co">（アークシステムズ）</span></div>
+    </div></div><div class="rlab even" style="grid-row:6">サブメンバー</div><div class="cell even" style="grid-row:6;grid-column:2"></div><div class="cell even" style="grid-row:6;grid-column:3"><div class="card text" data-id="kobayashi_eval" data-parent="watanabe_ai" data-col="1" style="--c:#a855f7">
+      <div class="unit">開発T</div>
+      <div class="nm">小林 結衣</div>
+      <div class="rl">RAG・精度検証<span class="co">（イロドリAIラボ）</span></div>
+    </div></div><div class="cell even" style="grid-row:6;grid-column:4"></div><div class="cell even" style="grid-row:6;grid-column:5"></div><div class="rlab roles" style="grid-row:7">担当業務</div><div class="cell roles" style="grid-row:7;grid-column:2"><ul><li>業務要件定義・KGI/KPI策定</li><li>全国店舗オペレーションBPR</li><li>店舗スタッフ教育・マニュアル整備</li><li>受入テスト(UAT)・リリース最終承認</li></ul></div><div class="cell roles" style="grid-row:7;grid-column:3"><ul><li>システム全体アーキテクチャ設計</li><li>店舗向けフロントUI / API実装</li><li>マルチエージェント推論基盤開発</li><li>RAGデータ構築・LLM精度検証</li></ul></div><div class="cell roles" style="grid-row:7;grid-column:4"><ul><li>GPU推論クラスタ・IaC基盤構築</li><li>ゼロトラスト・セキュリティ監査</li><li>SLO/SLI定義・24/365死活監視</li><li>障害一次切り分け・インシデント対応</li></ul></div><div class="cell roles" style="grid-row:7;grid-column:5"><ul><li>総合テスト計画・品質ゲート審査</li><li>マルチベンダ進捗・課題リスク管理</li><li>LLMハルシネーション安全性検証</li><li>出荷判定監査・品質メトリクス分析</li></ul></div>
+    </div>
+  </div>
+  <div class="ft"><span>社外秘 / Confidential</span><span>4社 ・ 12名 ・ 4チーム</span><span>1</span></div>
+</div>
+</div>
+<script>
+(function(){
+  var slide=document.getElementById('slide'), grid=document.getElementById('grid'), svg=document.getElementById('wires'), R=0, scale=1;
+  function fit(){scale=Math.min(innerWidth/1920,innerHeight/1080);
+    slide.style.transform='translate('+((innerWidth-1920*scale)/2)+'px,'+((innerHeight-1080*scale)/2)+'px) scale('+scale+')';}
+  function box(el){var g=grid.getBoundingClientRect(),r=el.getBoundingClientRect();
+    return {cx:((r.left+r.right)/2-g.left)/scale,t:(r.top-g.top)/scale,b:(r.bottom-g.top)/scale};}
+  function elbow(a,b){var x1=a.cx,y1=a.b,x2=b.cx,y2=b.t,m=y1+Math.min(18,(y2-y1)/2); // bus sits just under the parent
+    if(Math.abs(x1-x2)<1) return 'M'+x1+','+y1+'V'+y2;
+    if(!R) return 'M'+x1+','+y1+'V'+m+'H'+x2+'V'+y2;
+    var s=x2>x1?1:-1; return 'M'+x1+','+y1+'V'+(m-R)+'Q'+x1+','+m+' '+(x1+s*R)+','+m+'H'+(x2-s*R)+'Q'+x2+','+m+' '+x2+','+(m+R)+'V'+y2;}
+  function draw(){
+    var cards=[].slice.call(grid.querySelectorAll('.card')), out=[];
+    cards.forEach(function(c){
+      var pid=c.dataset.parent; if(!pid) return;
+      if(c.dataset.col==='pm'&&c.dataset.id!=="suzuki_pm") return;
+      var cands=cards.filter(function(x){return x.dataset.id===pid;});
+      var par=cands.find(function(x){return x.dataset.col===c.dataset.col;})||cands.find(function(x){return x.dataset.col==='pm';})||cands[0];
+      if(!par) return;
+      var src=par.dataset.col==='pm'?par.closest('.pmbox'):par, dst=c.dataset.col==='pm'?c.closest('.pmbox'):c;
+      out.push('<path d="'+elbow(box(src),box(dst))+'"/>');
+    });
+    svg.innerHTML=out.join('');
+  }
+  function all(){fit();draw();}
+  addEventListener('resize',all); addEventListener('load',all); document.fonts&&document.fonts.ready.then(all); all();
+})();
+</script>
+</body>
+</html>

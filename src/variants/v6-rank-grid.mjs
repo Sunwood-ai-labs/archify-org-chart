@@ -18,9 +18,9 @@ function card(org, p, a, col) {
   </div>`;
 }
 
-export function buildRankGrid(org) {
+// Shared tier model: cells[rank][deptIndex] = [{ p, a }], plus the PM span and column weights.
+export function computeRanks(org) {
   const P = org.people;
-  // cells[rank][deptIndex] = [{p, a}]
   const cells = RANKS.map(() => org.depts.map(() => []));
   org.depts.forEach(d => {
     const inDept = new Set(d.memberIds);
@@ -32,11 +32,16 @@ export function buildRankGrid(org) {
     });
   });
   const usedRanks = RANKS.map((_, r) => r < 2 || cells[r].some(c => c.length));
-
   // PM spans the teams whose leads report to the PM lead.
   const pmCols = org.depts.filter(d => d.memberIds.some(id => P.get(id).parent === org.pmLeadId)).map(d => d.index);
-  const pmFrom = Math.min(...pmCols) + 2, pmTo = Math.max(...pmCols) + 3;
   const weights = org.depts.map(d => Math.max(1, ...cells.map(r => r[d.index].length)));
+  return { RANKS, cells, usedRanks, pmCols, weights };
+}
+
+export function buildRankGrid(org) {
+  const P = org.people;
+  const { cells, usedRanks, pmCols, weights } = computeRanks(org);
+  const pmFrom = Math.min(...pmCols) + 2, pmTo = Math.max(...pmCols) + 3;
 
   const owner = P.get(org.ownerId);
   const pmPeople = [org.pmLeadId, ...org.pmMemberIds].map(id => P.get(id));
